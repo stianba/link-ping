@@ -22,5 +22,4 @@
         .effect('highlight')
 
   window.linkPin = LinkPin
-
 ) window, window.jQuery
