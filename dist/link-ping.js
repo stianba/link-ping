@@ -1,12 +1,12 @@
 (function(window, $) {
-  var LinkPin;
-  LinkPin = (function() {
-    function LinkPin(el, options) {
+  var LinkPing;
+  LinkPing = (function() {
+    function LinkPing(el, options) {
       this.$el = $(el);
       this.addEventListener();
     }
 
-    LinkPin.prototype.addEventListener = function() {
+    LinkPing.prototype.addEventListener = function() {
       return this.$el.on('click', (function(_this) {
         return function(event) {
           if (_this.sourceIsMisclick(event.target)) {
@@ -16,7 +16,7 @@
       })(this));
     };
 
-    LinkPin.prototype.sourceIsMisclick = function(source) {
+    LinkPing.prototype.sourceIsMisclick = function(source) {
       source = $(source);
       if (source.is('a')) {
         return false;
@@ -24,12 +24,12 @@
       return true;
     };
 
-    LinkPin.prototype.ping = function() {
+    LinkPing.prototype.ping = function() {
       return this.$el.find('a').effect('highlight');
     };
 
-    return LinkPin;
+    return LinkPing;
 
   })();
-  return window.linkPin = LinkPin;
+  return window.linkPing = LinkPing;
 })(window, window.jQuery);
