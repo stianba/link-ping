@@ -1,0 +1,26 @@
+{
+  "name": "link-ping",
+  "version": "0.0.1",
+  "description": "Inspired by Invision, when a user clicks outside a link, clickable links are highlighted.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stianba/link-ping"
+  },
+  "keywords": [
+    "ping",
+    "links"
+  ],
+  "author": "Stian Bakkane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stianba/link-ping/issues"
+  },
+  "homepage": "https://github.com/stianba/link-ping",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
