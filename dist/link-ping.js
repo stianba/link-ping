@@ -9,18 +9,14 @@
     LinkPin.prototype.addEventListener = function() {
       return this.$el.on('click', (function(_this) {
         return function(event) {
-          return _this.ping(event);
+          if (_this.sourceIsMisclick(event.target)) {
+            return _this.ping(event);
+          }
         };
       })(this));
     };
 
-    LinkPin.prototype.ping = function(event) {
-      if (this.checkThatSourceIsNotLink(event.target)) {
-        return this.pingLinks();
-      }
-    };
-
-    LinkPin.prototype.checkThatSourceIsNotLink = function(source) {
+    LinkPin.prototype.sourceIsMisclick = function(source) {
       source = $(source);
       if (source.is('a')) {
         return false;
@@ -28,8 +24,8 @@
       return true;
     };
 
-    LinkPin.prototype.pingLinks = function() {
-      return $(this.$el).find('a').effect('highlight');
+    LinkPin.prototype.ping = function() {
+      return this.$el.find('a').effect('highlight');
     };
 
     return LinkPin;
