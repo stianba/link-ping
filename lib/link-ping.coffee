@@ -1,5 +1,5 @@
 ((window, $) ->
-  class LinkPin
+  class LinkPing
     constructor: (el, options) ->
       @$el = $(el)
       @addEventListener()
@@ -18,5 +18,5 @@
         .find('a')
         .effect('highlight')
 
-  window.linkPin = LinkPin
+  window.linkPing = LinkPing
 ) window, window.jQuery
