@@ -10,7 +10,7 @@
       return this.$el.on('click', (function(_this) {
         return function(event) {
           if (_this.sourceIsMisclick(event.target)) {
-            return _this.ping(event);
+            return _this.ping();
           }
         };
       })(this));
