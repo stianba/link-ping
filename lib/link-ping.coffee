@@ -6,7 +6,7 @@
 
     addEventListener: ->
       @$el.on 'click', (event) =>
-        @ping event if @sourceIsMisclick event.target
+        @ping() if @sourceIsMisclick event.target
 
     sourceIsMisclick: (source) ->
       source = $(source)
