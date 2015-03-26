@@ -6,18 +6,15 @@
 
     addEventListener: ->
       @$el.on 'click', (event) =>
-        @ping event
-                  
-    ping: (event) ->
-      @pingLinks() if @checkThatSourceIsNotLink event.target
+        @ping event if @sourceIsMisclick event.target
 
-    checkThatSourceIsNotLink: (source) ->
+    sourceIsMisclick: (source) ->
       source = $(source)
       return false if source.is 'a'
       true
 
-    pingLinks: ->
-      $(@$el)
+    ping: ->
+      @$el
         .find('a')
         .effect('highlight')
 
