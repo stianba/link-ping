@@ -2,16 +2,26 @@
   class LinkPing
     constructor: (el, options) ->
       @$el = $(el)
+      @options = options || {}
       @addEventListener()
 
     addEventListener: ->
       @$el.on 'click', (event) =>
         @ping() if @sourceIsMisclick event.target
+        false
 
     sourceIsMisclick: (source) ->
-      source = $(source)
-      return false if source.is 'a'
-      true
+      misclick = true
+
+      $(source)
+        .parents()
+        .andSelf()
+        .each ->
+          $el = $(@)
+          # Ordinary links
+          return misclick = false if $el.is('a') and $el.attr('href')
+      
+      misclick
 
     ping: ->
       @$el

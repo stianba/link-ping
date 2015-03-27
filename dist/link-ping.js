@@ -3,6 +3,7 @@
   LinkPing = (function() {
     function LinkPing(el, options) {
       this.$el = $(el);
+      this.options = options || {};
       this.addEventListener();
     }
 
@@ -10,18 +11,24 @@
       return this.$el.on('click', (function(_this) {
         return function(event) {
           if (_this.sourceIsMisclick(event.target)) {
-            return _this.ping();
+            _this.ping();
           }
+          return false;
         };
       })(this));
     };
 
     LinkPing.prototype.sourceIsMisclick = function(source) {
-      source = $(source);
-      if (source.is('a')) {
-        return false;
-      }
-      return true;
+      var misclick;
+      misclick = true;
+      $(source).parents().andSelf().each(function() {
+        var $el;
+        $el = $(this);
+        if ($el.is('a') && $el.attr('href')) {
+          return misclick = false;
+        }
+      });
+      return misclick;
     };
 
     LinkPing.prototype.ping = function() {
