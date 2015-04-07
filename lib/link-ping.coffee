@@ -34,9 +34,31 @@
       false
 
     ping: ->
-      @$el
-        .find(@selector)
-        .effect('highlight')
+      $('.link-ping--flash').remove()
+      @flash @$el.find(@selector)
+
+    flash: (elements) ->
+      for elem in elements
+        $elem = $(elem)
+
+        $hl = $('<div/>')
+        $hl.addClass 'link-ping--flash'
+        $hl.css
+          background: 'rgba(0, 123, 255, .4)'
+          border: '1px solid rgba(0, 123, 255, .6)'
+          display: 'none'
+          height: $elem.outerHeight() + 'px'
+          left: $elem.offset().left + 'px'
+          position: 'absolute'
+          top: $elem.offset().top + 'px'
+          width: $elem.outerWidth() + 'px'
+          zIndex: 99999
+
+        $hl
+          .appendTo('body')
+          .fadeIn(200)
+          .delay(200)
+          .fadeOut(200)
 
   window.linkPing = LinkPing
 ) window, window.jQuery

@@ -44,7 +44,32 @@
     };
 
     LinkPing.prototype.ping = function() {
-      return this.$el.find(this.selector).effect('highlight');
+      $('.link-ping--flash').remove();
+      return this.flash(this.$el.find(this.selector));
+    };
+
+    LinkPing.prototype.flash = function(elements) {
+      var $elem, $hl, elem, i, len, results;
+      results = [];
+      for (i = 0, len = elements.length; i < len; i++) {
+        elem = elements[i];
+        $elem = $(elem);
+        $hl = $('<div/>');
+        $hl.addClass('link-ping--flash');
+        $hl.css({
+          background: 'rgba(0, 123, 255, .4)',
+          border: '1px solid rgba(0, 123, 255, .6)',
+          display: 'none',
+          height: $elem.outerHeight() + 'px',
+          left: $elem.offset().left + 'px',
+          position: 'absolute',
+          top: $elem.offset().top + 'px',
+          width: $elem.outerWidth() + 'px',
+          zIndex: 99999
+        });
+        results.push($hl.appendTo('body').fadeIn(200).delay(200).fadeOut(200));
+      }
+      return results;
     };
 
     return LinkPing;
