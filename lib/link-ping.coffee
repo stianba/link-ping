@@ -2,30 +2,39 @@
   class LinkPing
     constructor: (el, options) ->
       @$el = $(el)
-      @options = options || {}
+
+      try
+        @options = @validateOptions(options || {})
+      catch e
+        console.log e
+
       @addEventListener()
+
+    validateOptions: (options) ->
+      options.links = options.links || []
+
+      if !(options.links instanceof Array)
+        throw new Error 'Optional links has to be an array'
+
+      if options.links.length
+        options.links = ', ' + options.links.join ', '
+
+      options
 
     addEventListener: ->
       @$el.on 'click', (event) =>
         @ping() if @sourceIsMisclick event.target
+          
         false
 
     sourceIsMisclick: (source) ->
-      misclick = true
+      return true unless $(source).parents().andSelf().is "a#{@options.links}"
 
-      $(source)
-        .parents()
-        .andSelf()
-        .each ->
-          $el = $(@)
-          # Ordinary links
-          return misclick = false if $el.is('a') and $el.attr('href')
-      
-      misclick
+      false
 
     ping: ->
       @$el
-        .find('a')
+        .find("a#{@options.links}")
         .effect('highlight')
 
   window.linkPing = LinkPing
