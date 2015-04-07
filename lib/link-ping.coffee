@@ -25,8 +25,6 @@
     addEventListener: ->
       @$el.on 'click', (event) =>
         @ping() if @sourceIsMisclick event.target
-          
-        false
 
     sourceIsMisclick: (source) ->
       return true unless $(source).parents().andSelf().is @selector
