@@ -10,6 +10,7 @@
         e = _error;
         console.log(e);
       }
+      this.selector = 'a[href][href!="#"]' + this.options.links;
       this.addEventListener();
     }
 
@@ -36,14 +37,14 @@
     };
 
     LinkPing.prototype.sourceIsMisclick = function(source) {
-      if (!$(source).parents().andSelf().is("a" + this.options.links)) {
+      if (!$(source).parents().andSelf().is(this.selector)) {
         return true;
       }
       return false;
     };
 
     LinkPing.prototype.ping = function() {
-      return this.$el.find("a" + this.options.links).effect('highlight');
+      return this.$el.find(this.selector).effect('highlight');
     };
 
     return LinkPing;

@@ -8,6 +8,7 @@
       catch e
         console.log e
 
+      @selector = 'a[href][href!="#"]' + @options.links
       @addEventListener()
 
     validateOptions: (options) ->
@@ -28,13 +29,13 @@
         false
 
     sourceIsMisclick: (source) ->
-      return true unless $(source).parents().andSelf().is "a#{@options.links}"
+      return true unless $(source).parents().andSelf().is @selector
 
       false
 
     ping: ->
       @$el
-        .find("a#{@options.links}")
+        .find(@selector)
         .effect('highlight')
 
   window.linkPing = LinkPing
