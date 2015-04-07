@@ -14,6 +14,7 @@ dist/link-ping.min.js
 
 ## How to use
 **Note:** This plugin requires jQuery to work.
+
 #### Default usage
 ```html
 <!DOCTYPE html>
@@ -52,9 +53,7 @@ dist/link-ping.min.js
     <script src="jquery.min.js"></script>
     <script src="link-ping.min.js"></script>
     <script>
-      new linkPing('body', {
-        links: ['.js-link']
-      });
+      new linkPing('body', { links: ['.js-link'] });
     </script>
   </body>
 </html>
