@@ -1,5 +1,5 @@
 # link-ping
-Prototyping tool inspired by Invision. When a user clicks outside a link, clickable links are highlighted.
+Prototyping tool inspired by Invision. When a user clicks outside a clickable link, clickable links are highlighted.
 
 ## Install
 Using [Bower](http://bower.io/)
