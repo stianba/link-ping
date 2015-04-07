@@ -1,6 +1,6 @@
 {
   "name": "link-ping",
-  "version": "0.0.1",
+  "version": "1.0.3",
   "description": "Inspired by Invision, when a user clicks outside a link, clickable links are highlighted.",
   "main": "index.js",
   "scripts": {
