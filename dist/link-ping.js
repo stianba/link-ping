@@ -2,10 +2,27 @@
   var LinkPing;
   LinkPing = (function() {
     function LinkPing(el, options) {
+      var e;
       this.$el = $(el);
-      this.options = options || {};
+      try {
+        this.options = this.validateOptions(options || {});
+      } catch (_error) {
+        e = _error;
+        console.log(e);
+      }
       this.addEventListener();
     }
+
+    LinkPing.prototype.validateOptions = function(options) {
+      options.links = options.links || [];
+      if (!(options.links instanceof Array)) {
+        throw new Error('Optional links has to be an array');
+      }
+      if (options.links.length) {
+        options.links = ', ' + options.links.join(', ');
+      }
+      return options;
+    };
 
     LinkPing.prototype.addEventListener = function() {
       return this.$el.on('click', (function(_this) {
@@ -19,20 +36,14 @@
     };
 
     LinkPing.prototype.sourceIsMisclick = function(source) {
-      var misclick;
-      misclick = true;
-      $(source).parents().andSelf().each(function() {
-        var $el;
-        $el = $(this);
-        if ($el.is('a') && $el.attr('href')) {
-          return misclick = false;
-        }
-      });
-      return misclick;
+      if (!$(source).parents().andSelf().is("a" + this.options.links)) {
+        return true;
+      }
+      return false;
     };
 
     LinkPing.prototype.ping = function() {
-      return this.$el.find('a').effect('highlight');
+      return this.$el.find("a" + this.options.links).effect('highlight');
     };
 
     return LinkPing;
