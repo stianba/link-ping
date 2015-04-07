@@ -29,9 +29,8 @@
       return this.$el.on('click', (function(_this) {
         return function(event) {
           if (_this.sourceIsMisclick(event.target)) {
-            _this.ping();
+            return _this.ping();
           }
-          return false;
         };
       })(this));
     };
