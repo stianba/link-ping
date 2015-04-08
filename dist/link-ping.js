@@ -11,7 +11,7 @@
         console.log(e);
       }
       this.selector = 'a[href][href!="#"]' + this.options.links;
-      this.addEventListener();
+      this.addEventListeners();
     }
 
     LinkPing.prototype.validateOptions = function(options) {
@@ -25,11 +25,25 @@
       return options;
     };
 
-    LinkPing.prototype.addEventListener = function() {
-      return this.$el.on('click', (function(_this) {
+    LinkPing.prototype.addEventListeners = function() {
+      this.$el.on('click', (function(_this) {
         return function(event) {
           if (_this.sourceIsMisclick(event.target)) {
             return _this.ping();
+          }
+        };
+      })(this));
+      $(document).on('keydown', (function(_this) {
+        return function(e) {
+          if (e.keyCode === 16) {
+            return _this.ping('hold');
+          }
+        };
+      })(this));
+      return $(document).on('keyup', (function(_this) {
+        return function(e) {
+          if (e.keyCode === 16) {
+            return _this.flushPings();
           }
         };
       })(this));
@@ -42,17 +56,11 @@
       return false;
     };
 
-    LinkPing.prototype.ping = function() {
-      $('.link-ping--flash').remove();
-      return this.flash(this.$el.find(this.selector));
-    };
-
-    LinkPing.prototype.flash = function(elements) {
-      var $elem, $hl, elem, i, len, results;
-      results = [];
-      for (i = 0, len = elements.length; i < len; i++) {
-        elem = elements[i];
-        $elem = $(elem);
+    LinkPing.prototype.ping = function(duration) {
+      duration = duration || 'short';
+      this.$el.find(this.selector).each(function() {
+        var $elem, $hl;
+        $elem = $(this);
         $hl = $('<div/>');
         $hl.addClass('link-ping--flash');
         $hl.css({
@@ -66,9 +74,32 @@
           width: $elem.outerWidth() + 'px',
           zIndex: 99999
         });
-        results.push($hl.appendTo('body').fadeIn(200).delay(200).fadeOut(200));
+        return $hl.appendTo('body').fadeIn(200);
+      });
+      if (duration === 'short') {
+        return this.flushPings(200);
       }
-      return results;
+    };
+
+    LinkPing.prototype.flushPings = function(delay, speed) {
+      var ref, ref1;
+            if ((ref = typeof delay === 'Number') != null) {
+        ref;
+      } else {
+        delay = {
+          delay: delay = 0
+        };
+      };
+            if ((ref1 = typeof speed === 'Number') != null) {
+        ref1;
+      } else {
+        speed = {
+          speed: speed = 200
+        };
+      };
+      return $('.link-ping--flash').delay(delay).fadeOut(speed, function() {
+        return this.remove();
+      });
     };
 
     return LinkPing;

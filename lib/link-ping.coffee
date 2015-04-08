@@ -9,7 +9,7 @@
         console.log e
 
       @selector = 'a[href][href!="#"]' + @options.links
-      @addEventListener()
+      @addEventListeners()
 
     validateOptions: (options) ->
       options.links = options.links || []
@@ -22,41 +22,53 @@
 
       options
 
-    addEventListener: ->
+    addEventListeners: ->
       @$el.on 'click', (event) =>
         @ping() if @sourceIsMisclick event.target
 
+      $(document).on 'keydown', (e) =>
+        @ping('hold') if e.keyCode is 16 # Shift key
+
+      $(document).on 'keyup', (e) =>
+        @flushPings() if e.keyCode is 16 # Shift key
+
     sourceIsMisclick: (source) ->
       return true unless $(source).parents().andSelf().is @selector
-
       false
 
-    ping: ->
-      $('.link-ping--flash').remove()
-      @flash @$el.find(@selector)
+    ping: (duration) ->
+      duration = duration || 'short'
 
-    flash: (elements) ->
-      for elem in elements
-        $elem = $(elem)
+      @$el
+        .find(@selector)
+        .each ->
+          $elem = $(this)
 
-        $hl = $('<div/>')
-        $hl.addClass 'link-ping--flash'
-        $hl.css
-          background: 'rgba(0, 123, 255, .4)'
-          border: '1px solid rgba(0, 123, 255, .6)'
-          display: 'none'
-          height: $elem.outerHeight() + 'px'
-          left: $elem.offset().left + 'px'
-          position: 'absolute'
-          top: $elem.offset().top + 'px'
-          width: $elem.outerWidth() + 'px'
-          zIndex: 99999
+          $hl = $('<div/>')
+          $hl.addClass 'link-ping--flash'
+          $hl.css
+            background: 'rgba(0, 123, 255, .4)'
+            border: '1px solid rgba(0, 123, 255, .6)'
+            display: 'none'
+            height: $elem.outerHeight() + 'px'
+            left: $elem.offset().left + 'px'
+            position: 'absolute'
+            top: $elem.offset().top + 'px'
+            width: $elem.outerWidth() + 'px'
+            zIndex: 99999
 
-        $hl
-          .appendTo('body')
-          .fadeIn(200)
-          .delay(200)
-          .fadeOut(200)
+          $hl
+            .appendTo('body')
+            .fadeIn(200)
+
+      @flushPings(200) if duration is 'short'
+            
+    flushPings: (delay, speed) ->
+      typeof delay is 'Number' ? delay = delay : delay = 0
+      typeof speed is 'Number' ? speed = speed : speed = 200
+
+      $('.link-ping--flash').delay(delay).fadeOut speed, ->
+        @.remove()
 
   window.linkPing = LinkPing
 ) window, window.jQuery
