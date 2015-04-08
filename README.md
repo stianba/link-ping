@@ -49,7 +49,7 @@ dist/link-ping.min.js
   </head>
   <body>
     <a href="link.html">Linky link</a> <!-- WILL highlight when clicked outside -->
-    <a class="js-link">Linky link</a> <!-- WILL highlight when clicked outside -->
+    <span class="js-link">Linky link</span> <!-- WILL highlight when clicked outside -->
     <a href="#">Linky link</a> <!-- Will NOT highlight when clicked outside -->
 
     <script src="jquery.min.js"></script>
