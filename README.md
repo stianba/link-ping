@@ -33,7 +33,7 @@ dist/link-ping.min.js
     <script src="jquery.min.js"></script>
     <script src="link-ping.min.js"></script>
     <script>
-      new linkPing('body');
+      var linkPing = new LinkPing('body');
     </script>
   </body>
 </html>
@@ -55,7 +55,7 @@ dist/link-ping.min.js
     <script src="jquery.min.js"></script>
     <script src="link-ping.min.js"></script>
     <script>
-      new linkPing('body', { links: ['.js-link'] });
+      var linkPing = new LinkPing('body', { include: ['.js-link'] });
     </script>
   </body>
 </html>
