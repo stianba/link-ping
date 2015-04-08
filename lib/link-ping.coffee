@@ -8,17 +8,17 @@
       catch e
         console.log e
 
-      @selector = 'a[href][href!="#"]' + @options.links
+      @selector = 'a[href][href!="#"]' + @options.include
       @addEventListeners()
 
     validateOptions: (options) ->
-      options.links = options.links || []
+      options.include = options.include || []
 
-      if !(options.links instanceof Array)
-        throw new Error 'Optional links has to be an array'
+      if !(options.include instanceof Array)
+        throw new Error 'Includes has to be an array'
 
-      if options.links.length
-        options.links = ', ' + options.links.join ', '
+      if options.include.length
+        options.include = ', ' + options.include.join ', '
 
       options
 
@@ -70,5 +70,5 @@
       $('.link-ping--flash').delay(delay).fadeOut speed, ->
         @.remove()
 
-  window.linkPing = LinkPing
+  window.LinkPing = LinkPing
 ) window, window.jQuery

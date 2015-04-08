@@ -10,17 +10,17 @@
         e = _error;
         console.log(e);
       }
-      this.selector = 'a[href][href!="#"]' + this.options.links;
+      this.selector = 'a[href][href!="#"]' + this.options.include;
       this.addEventListeners();
     }
 
     LinkPing.prototype.validateOptions = function(options) {
-      options.links = options.links || [];
-      if (!(options.links instanceof Array)) {
-        throw new Error('Optional links has to be an array');
+      options.include = options.include || [];
+      if (!(options.include instanceof Array)) {
+        throw new Error('Includes has to be an array');
       }
-      if (options.links.length) {
-        options.links = ', ' + options.links.join(', ');
+      if (options.include.length) {
+        options.include = ', ' + options.include.join(', ');
       }
       return options;
     };
@@ -105,5 +105,5 @@
     return LinkPing;
 
   })();
-  return window.linkPing = LinkPing;
+  return window.LinkPing = LinkPing;
 })(window, window.jQuery);
