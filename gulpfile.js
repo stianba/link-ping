@@ -4,10 +4,11 @@ const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const rename = require('gulp-rename');
 const bufferify = require('vinyl-buffer');
+const babel = require('gulp-babel');
 
 gulp.task('bundle', function() {
   'use strict';
-  
+
   const bundler = browserify({
     cache: {},
     packageCache: {},
@@ -27,6 +28,12 @@ gulp.task('bundle', function() {
   }
 
   bundle();
+});
+
+gulp.task('build', function() {
+  return gulp.src('./lib/link-ping.js')
+    .pipe(babel())
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('default', ['bundle']);
