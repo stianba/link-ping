@@ -1,4 +1,5 @@
-const LinkPing = require ('../lib/link-ping');
+import LinkPing from '../dist/link-ping'
+
 const linkPing = new LinkPing('body', {
-  include: ['.link'],
-});
+  include: ['.link']
+})
