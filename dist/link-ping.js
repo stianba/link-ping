@@ -12,7 +12,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var LinkPing = function () {
   function LinkPing(container) {
-    var options = arguments.length <= 1 || arguments[1] === undefined ? { include: [] } : arguments[1];
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { include: [] };
 
     _classCallCheck(this, LinkPing);
 
@@ -82,7 +82,7 @@ var LinkPing = function () {
           position: 'absolute',
           top: $elem.offset().top + 'px',
           width: $elem.outerWidth() + 'px',
-          zIndex: 99999
+          zIndex: -1
         });
 
         $hl.appendTo('body').fadeIn(200);
